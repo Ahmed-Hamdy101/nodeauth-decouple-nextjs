@@ -1,0 +1,7 @@
+@import 'tailwindcss';
+
+@layer base {
+  .bgc-panel {
+    background: #020617;
+  }
+}
