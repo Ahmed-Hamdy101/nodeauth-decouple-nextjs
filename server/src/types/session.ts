@@ -9,8 +9,11 @@ export const sessionMiddleware = session({
   resave: false,
   name: process.env.SESSION_NAME || 'sid',
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
-    secure: process.env.NODE_ENV === 'production', // true if using https
-    httpOnly: true, // prevents client-side JS from accessing the cookie
+    // 1 day
+    maxAge: 1000 * 60 * 60 * 24,
+    // true if using https
+    secure: process.env.NODE_ENV === 'production', 
+    // prevents client-side JS from accessing the cookie
+    httpOnly: true, 
   },
 })
