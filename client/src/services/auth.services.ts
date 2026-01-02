@@ -30,6 +30,37 @@ class AuthService {
       throw new Error(error.response?.data?.message || 'Login failed');
     }
   };
+
+  // register
+  register = async (AuthForms: AuthForms): Promise<AuthResponse> => {
+    try {
+      // Make request
+      const response = await api.post<AuthResponse>('/register', AuthForms);
+      console.log('Register response:', response.data);
+      
+      // Extract token
+      const token = response.data.token;
+      if (!token) throw new Error('No access token received from server');
+      
+      // Save token
+      localStorage.setItem('token', token);
+      
+      // Optionally save user data
+      if (response.data.user) {
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
+
+      // Set default Bearer token for all requests
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      return response.data;
+    }
+    catch (error: any) {
+      console.error('Registration failed:', error.response?.data || error.message);
+      throw new Error(error.response?.data?.message || 'Registration failed');
+    }
+
+  };
 }
 
 export default AuthService;

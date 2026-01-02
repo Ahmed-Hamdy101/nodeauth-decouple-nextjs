@@ -15,3 +15,11 @@ export interface AuthResponse {
   };
   message?: string; // optional
 }
+
+export interface CreatAuthForms {
+  username: string; // optional if signup
+  email: string;
+  password: string;
+}
+
+
